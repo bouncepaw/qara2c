@@ -132,6 +132,9 @@ sub ApplyCodelet {
   elsif ($obj_ref->{'type'} =~ m/struct|enum|union/) {
     $obj_ref->{'postbody'} .= $res;
   }
+  else {
+    $obj_ref->{'body'} .= $res;
+  }
   $stopline
 }
 
@@ -231,8 +234,8 @@ sub AsString {
     return $hash_ref->{'body'} . $hash_ref->{'epilogue'}
   }
   $hash_ref->{'prologue'} . $hash_ref->{'header1'} . $hash_ref->{'header2'}
-  . $hash_ref->{'header3'} . " {\n". $hash_ref->{'body'}
-  . $hash_ref->{'epilogue'} . "}\n"
+  . $hash_ref->{'header3'} . $hash_ref->{'body'}
+  . $hash_ref->{'epilogue'} . "\n"
 }
 
 # First, read everything into array of sections:
