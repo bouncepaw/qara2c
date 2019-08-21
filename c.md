@@ -9,6 +9,7 @@ This document lists Qaraidel features for the C programming language.
 - Enumeration declarations with `enum`.
 - Union declarations with `union`.
 - Multiple `#define` macros used as constants with `defconst`.
+- Single `#define` macros with parameters with `defmacro`.
 
 ## struct point
 
@@ -44,6 +45,19 @@ W /* And here */
 
 - `STDIN 0`
 - `STDOUT 1`
+
+## defmacro max
+
+- `x`
+- `y`
+
+Backslashes will be inserted automatically:
+
+```c
+((x) > (y)
+  ? (x)
+  : (y))
+```
 
 ## fn main
 
