@@ -233,6 +233,13 @@ sub AsString {
   elsif ($hash_ref->{'type'} =~ /defconst/) {
     return $hash_ref->{'body'} . $hash_ref->{'epilogue'}
   }
+  elsif ($hash_ref->{'type'} =~ /fn/) {
+    $hash_ref->{'header1'} =~ /fn (.*)/;
+    my $true_header = $1;
+    return $hash_ref->{'prologue'} . $true_header   
+    . $hash_ref->{'header2'}  . "{\n" . $hash_ref->{'body'}
+    . "\n}\n" . $hash_ref->{'epilogue'}
+  }
   $hash_ref->{'prologue'} . $hash_ref->{'header1'} . $hash_ref->{'header2'}
   . $hash_ref->{'header3'} . $hash_ref->{'body'}
   . $hash_ref->{'epilogue'} . "\n"
