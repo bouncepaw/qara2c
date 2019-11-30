@@ -56,17 +56,21 @@ if ($should_weave) {
   my $in_codelet = 0;
   my $would_be_nice_to_clean_blank = 0;
   while (<STDIN>) {
-    given (line_type $_) {
+    $line = $_;
+    given (line_type $line) {
       when('fence') {
         # Invert state.
-        $in_codelet = $in_codelet ? 1 : 0;
-        $would_be_nice_to_clean_blank = 1 unless $in_codelet; }
+        $in_codelet = $in_codelet == 0 ? 1 : 0;
+        $would_be_nice_to_clean_blank = 1 if  $in_codelet == 0; }
       when('quote') {
         $would_be_nice_to_clean_blank = 1; }
       when('blank') {
-        print unless $would_be_nice_to_clean_blank }
+        print $line unless $would_be_nice_to_clean_blank;
+        $would_be_nice_to_clean_blank = 1
+        }
       default {
-        print } } }
+        print $line unless $in_codelet == 1;
+        $would_be_nice_to_clean_blank = 0 } } }
   exit 0;
 }
 
